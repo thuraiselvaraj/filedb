@@ -3,7 +3,7 @@ import java.io.*;
 public class GetTableDetails {
     private static String[] FIELDS = new String[]{"STRING","INT","LONG","DOUBLE","FLOAT","BOOLEAN"};
     private static final Set Fields = new HashSet<String>(Arrays.asList(FIELDS));
-    private static HashMap<String,HashMap<String,Class>> tablesVsFieldDetails = new HashMap<>();
+    private static HashMap<String,LinkedHashMap<String,Class>> tablesVsFieldDetails = new HashMap<>();
 
     public static void initialize(String path) throws IOException{
         Properties props = parseProps("/home/local/ZOHOCORP/chella-pt3956/Desktop/filedb/test/Tables.props");
@@ -19,7 +19,7 @@ public class GetTableDetails {
         return p;
     }
 
-    public static HashMap<String,Class> getFieldVsTypes(String tableName){
+    public static LinkedHashMap<String,Class> getFieldVsTypes(String tableName){
         return tablesVsFieldDetails.get(tableName);
     }
 
@@ -36,8 +36,8 @@ public class GetTableDetails {
           }
     }
 
-    private static HashMap<String,Class> getFieldVsTypes_(String tableBuffer)throws IllegalArgumentException,ClassNotFoundException{
-        HashMap<String,Class> fieldVsTypes = new HashMap<String,Class>();
+    private static LinkedHashMap<String,Class> getFieldVsTypes_(String tableBuffer)throws IllegalArgumentException,ClassNotFoundException{
+        LinkedHashMap<String,Class> fieldVsTypes = new LinkedHashMap<String,Class>();
         String[] values = null ;
         for(String entry : tableBuffer.split(",")){
              values = entry.split(":");
